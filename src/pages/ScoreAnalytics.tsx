@@ -141,14 +141,16 @@ export function ScoreAnalytics() {
                Performance Index
             </p>
             <div className="flex items-baseline gap-2">
-              <h3 className="text-6xl font-bold tracking-tighter">{avgPct}%</h3>
+              <h3 className="text-6xl font-bold tracking-tighter">{numScanned > 0 ? `${avgPct}%` : 'N/A'}</h3>
             </div>
           </div>
           <div className="mt-8 relative z-10">
-            <div className="w-full bg-white/10 rounded-full h-2 mb-4">
-              <div className="bg-white h-full rounded-full" style={{ width: `${avgPct}%` }}></div>
+            <div className="w-full bg-white/10 rounded-full h-2 mb-4 overflow-hidden">
+              <div className="bg-white h-full rounded-full transition-all duration-1000" style={{ width: `${numScanned > 0 ? avgPct : 0}%` }}></div>
             </div>
-            <p className="text-xs font-medium text-white/70">Class benchmark set {numScanned} assessments ago</p>
+            <p className="text-xs font-medium text-white/70">
+              {numScanned > 0 ? `Class benchmark set ${numScanned} assessments ago` : 'No results in yet'}
+            </p>
           </div>
         </div>
         
@@ -156,14 +158,16 @@ export function ScoreAnalytics() {
           <div>
             <p className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-6">Quality metrics</p>
             <div className="flex items-baseline gap-3">
-              <h3 className="text-5xl font-bold text-primary tracking-tighter">{highScore}%</h3>
-              <span className="text-body-sm text-on-surface-variant font-medium">{highRaw} of {test.numQuestions} items</span>
+              <h3 className="text-5xl font-bold text-primary tracking-tighter">{numScanned > 0 ? `${highScore}%` : 'N/A'}</h3>
+              <span className="text-body-sm text-on-surface-variant font-medium">
+                {numScanned > 0 ? `${highRaw} of ${test.numQuestions} items` : 'No results in'}
+              </span>
             </div>
           </div>
           <div className="mt-6 flex items-center justify-between border-t border-outline-variant pt-4">
             <div className="flex flex-col">
                <span className="text-[10px] font-bold text-on-surface-variant uppercase">Lowest Result</span>
-               <span className="text-xl font-bold text-primary">{lowScore}%</span>
+               <span className="text-xl font-bold text-primary">{numScanned > 0 ? `${lowScore}%` : 'N/A'}</span>
             </div>
             <div className="w-12 h-12 bg-primary/5 rounded-full flex items-center justify-center">
                <span className="material-symbols-outlined text-primary">emoji_events</span>
